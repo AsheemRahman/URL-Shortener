@@ -53,8 +53,8 @@ class AuthController implements IAuthController {
             const accessToken = JwtUtility.generateAccessToken(payload);
             const refreshToken = JwtUtility.generateRefreshToken(payload);
             const isProduction = process.env.NODE_ENV === "production";
-            res.cookie("accessToken", accessToken, { httpOnly: true, secure: isProduction, sameSite: isProduction ? "none" : "lax", maxAge: parseInt(process.env.ACCESS_TOKEN_MAX_AGE || "1440000") });
-            res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: isProduction, sameSite: isProduction ? "none" : "lax", maxAge: parseInt(process.env.REFRESH_TOKEN_MAX_AGE || "86400000") });
+            res.cookie("accessToken", accessToken, { httpOnly: true, secure: isProduction, sameSite: isProduction ? "none" : "lax", domain: isProduction ? process.env.COOKIE_DOMAIN : undefined, maxAge: parseInt(process.env.ACCESS_TOKEN_MAX_AGE || "1440000") });
+            res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: isProduction, sameSite: isProduction ? "none" : "lax", domain: isProduction ? process.env.COOKIE_DOMAIN : undefined, maxAge: parseInt(process.env.REFRESH_TOKEN_MAX_AGE || "86400000") });
             res.status(STATUS_CODES.OK).json({ status: true, message: SUCCESS_MESSAGES.LOGIN, user: currentUser, token: accessToken });
         } catch (error) {
             console.log("Error while login", error)
@@ -84,7 +84,7 @@ class AuthController implements IAuthController {
             }
             const isProduction = process.env.NODE_ENV === "production";
             const newAccessToken = JwtUtility.generateAccessToken({ userId, email });
-            res.cookie("accessToken", newAccessToken, { httpOnly: true, secure: isProduction, sameSite: isProduction ? "none" : "lax", maxAge: parseInt(process.env.ACCESS_TOKEN_MAX_AGE || "1440000") });
+            res.cookie("accessToken", newAccessToken, { httpOnly: true, secure: isProduction, sameSite: isProduction ? "none" : "lax", domain: isProduction ? process.env.COOKIE_DOMAIN : undefined, maxAge: parseInt(process.env.ACCESS_TOKEN_MAX_AGE || "1440000") });
             res.status(STATUS_CODES.OK).json({ status: true, accessToken: newAccessToken, message: "Access token refreshed successfully" });
         } catch (error) {
             console.log("Error while refresh token", error)
