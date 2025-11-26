@@ -1,0 +1,24 @@
+export const ERROR_MESSAGES = {
+
+    INTERNAL_SERVER_ERROR: "An unexpected error occurred. Please try again later.",
+    BAD_REQUEST: "The request could not be understood or was missing required parameters.",
+    UNAUTHORIZED: "You are not authorized to access this resource.",
+    FORBIDDEN: "You are not allowed to perform this action.",
+    NOT_FOUND: "The requested resource could not be found.",
+    INVALID_CREDENTIALS: "Invalid email or password",
+
+    INVALID_INPUT: "The request contains invalid data.",
+    MISSING_REQUIRED_FIELDS: "Required fields are missing.",
+
+    EMAIL_ALREADY_EXIST: "Email is already in use.",
+    EMAIL_NOT_FOUND: "Email is not registered.",
+
+    USERID_NOT_FOUND: "User ID is missing",
+
+    INVALID_TOKEN: "Invalid or expired token, please log in again.",
+    TOKEN_NOT_FOUND: "Access token not found, please log in",
+
+    REFRESH_TOKEN_MISSING: "Refresh token missing",
+    INVALID_REFRESH_TOKEN: "Invalid refresh token",
+
+} as const;
