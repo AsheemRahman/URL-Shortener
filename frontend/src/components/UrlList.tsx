@@ -41,7 +41,7 @@ export default function UrlList({ urls, onDelete }: Props) {
                                     {typeof window !== "undefined" ? `${window.location.origin}/:${url.shortId}` : url.shortId}
                                 </span>
 
-                                <button onClick={() => copyToClipboard(`${window.location.origin}/${url.shortId}`)} className="p-1 hover:bg-gray-200 rounded" title="Copy">
+                                <button onClick={() => copyToClipboard(`${window.location.origin}/:${url.shortId}`)} className="p-1 hover:bg-gray-200 rounded" title="Copy">
                                     <Copy className="w-4 h-4 text-gray-600" />
                                 </button>
                             </div>
