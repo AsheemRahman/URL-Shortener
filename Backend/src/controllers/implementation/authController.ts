@@ -55,7 +55,7 @@ class AuthController implements IAuthController {
             const isProduction = process.env.NODE_ENV === "production";
             res.cookie("accessToken", accessToken, { httpOnly: true, secure: isProduction, domain: process.env.COOKIE_DOMAIN, sameSite: isProduction ? "none" : "lax", maxAge: parseInt(process.env.ACCESS_TOKEN_MAX_AGE || "1440000") });
             res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: isProduction, domain: process.env.COOKIE_DOMAIN, sameSite: isProduction ? "none" : "lax", maxAge: parseInt(process.env.REFRESH_TOKEN_MAX_AGE || "86400000") });
-            res.status(STATUS_CODES.OK).json({ status: true, message: SUCCESS_MESSAGES.LOGIN, user: currentUser, token: accessToken });
+            res.status(STATUS_CODES.OK).json({ status: true, message: SUCCESS_MESSAGES.LOGIN, user: currentUser, accessToken, refreshToken });
         } catch (error) {
             console.log("Error while login", error)
             res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({ status: false, message: ERROR_MESSAGES.INTERNAL_SERVER_ERROR });

@@ -1,14 +1,16 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import authApi from '@/app/service/authApi';
 import { useAuthStore } from '@/store/authStore';
+import { toast } from 'react-toastify';
+import Cookies from "js-cookie";
 
 
 export default function Login() {
-    // const router = useRouter();
+    const router = useRouter();
     const [formData, setFormData] = useState({ email: '', password: '', });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -27,11 +29,13 @@ export default function Login() {
         try {
             const response = await authApi.LoginPost(formData);
             console.log("response from login", response);
-            if (response.status && response.token) {
-                const { user, token } = response;
-                setUserAuth(user, token);
-                // router.push('/dashboard');
-                window.location.href = "/dashboard";
+            if (response.status && response.accessToken && response.user) {
+                const { user, accessToken } = response;
+                setUserAuth(user, accessToken);
+                Cookies.set("accessToken", response.accessToken, { expires: 1 });   // 1 day
+                Cookies.set("refreshToken", response.refreshToken, { expires: 7 }); // 7 days
+                toast.success("Login Successfully!");
+                router.push("/dashboard");
             } else {
                 setError(response.message || 'Login failed');
             }
