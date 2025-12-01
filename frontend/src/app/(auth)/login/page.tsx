@@ -26,6 +26,7 @@ export default function Login() {
         setLoading(true);
         try {
             const response = await authApi.LoginPost(formData);
+            console.log("response from login", response);
             if (response.status && response.token) {
                 const { user, token } = response;
                 setUserAuth(user, token);
