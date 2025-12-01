@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import authApi from '@/app/service/authApi';
 import { useAuthStore } from '@/store/authStore';
 
 
 export default function Login() {
-    const router = useRouter();
+    // const router = useRouter();
     const [formData, setFormData] = useState({ email: '', password: '', });
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -29,7 +29,8 @@ export default function Login() {
             if (response.status && response.token) {
                 const { user, token } = response;
                 setUserAuth(user, token);
-                router.push('/dashboard');
+                // router.push('/dashboard');
+                window.location.href = "/dashboard";
             } else {
                 setError(response.message || 'Login failed');
             }
