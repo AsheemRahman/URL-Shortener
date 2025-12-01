@@ -22,9 +22,9 @@ export default function Dashboard() {
     const { user } = useAuthStore();
 
     useEffect(() => {
-        // if (!user) {
-        //     return;
-        // }
+        if (!user) {
+            return;
+        }
         fetchUrls();
     }, [user, router]);
 
@@ -46,7 +46,6 @@ export default function Dashboard() {
         setSubmitting(true);
         setError('');
         try {
-            console.log("Valu to backend", newUrl)
             const response = await urlApi.createURL(newUrl);
             if (response.status) {
                 setUrls([response.url, ...urls]);

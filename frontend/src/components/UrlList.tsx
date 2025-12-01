@@ -1,7 +1,7 @@
 "use client"
 
 import { Url } from "@/types/types";
-import { ExternalLink, Trash2, LinkIcon } from "lucide-react";
+import { ExternalLink, Trash2, LinkIcon, Copy } from "lucide-react";
 import Pagination from "./Pagination";
 import { useState } from "react";
 
@@ -18,9 +18,9 @@ export default function UrlList({ urls, onDelete }: Props) {
     const start = (currentPage - 1) * perPage;
     const paginatedData = urls.slice(start, start + perPage);
 
-    // const copyToClipboard = (text: string) => {
-    //     navigator.clipboard.writeText(text);
-    // };
+    const copyToClipboard = (text: string) => {
+        navigator.clipboard.writeText(text);
+    };
 
     if (urls.length === 0)
         return (
@@ -38,12 +38,12 @@ export default function UrlList({ urls, onDelete }: Props) {
                             <div className="flex items-center gap-2 mb-2">
                                 <LinkIcon className="w-4 h-4 text-blue-600" />
                                 <span className="font-medium text-blue-600">
-                                    {typeof window !== "undefined" ? `${window.location.origin}/${url.shortId}` : url.shortId}
+                                    {typeof window !== "undefined" ? `${window.location.origin}/:${url.shortId}` : url.shortId}
                                 </span>
 
-                                {/* <button onClick={() => copyToClipboard(`${window.location.origin}/${url.shortId}`)} className="p-1 hover:bg-gray-200 rounded" title="Copy">
+                                <button onClick={() => copyToClipboard(`${window.location.origin}/${url.shortId}`)} className="p-1 hover:bg-gray-200 rounded" title="Copy">
                                     <Copy className="w-4 h-4 text-gray-600" />
-                                </button> */}
+                                </button>
                             </div>
 
                             <p className="text-sm text-gray-600 truncate">
